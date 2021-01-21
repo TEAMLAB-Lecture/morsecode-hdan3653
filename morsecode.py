@@ -51,7 +51,10 @@ def is_help_command(user_input):
     """
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
-    result = None
+    result = False
+
+    if user_input.upper() in ["H", "HELP"]:
+        result = True
 
     return result
     # ==================================
@@ -83,7 +86,20 @@ def is_validated_english_sentence(user_input):
     """
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
-    result = None
+    result = True
+    count = 0
+
+    for ch in user_input:
+        if ch.upper() in ['.', ',', '!', '?', ' ']:
+            count += 1
+            continue
+
+        if ch.upper() not in get_morse_code_dict().keys():
+            result = False
+            break
+
+    if len(user_input) == count:
+        result = False
 
     return result
     # ==================================
@@ -114,7 +130,12 @@ def is_validated_morse_code(user_input):
     """
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
-    result = None
+    result = True
+
+    for code in user_input.split():
+        if code not in get_morse_code_dict().values():
+            result = False
+            break
 
     return result
     # ==================================
@@ -140,7 +161,13 @@ def get_cleaned_english_sentence(raw_english_sentence):
     """
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당 또는 필요에 따라 자유로운 수정
-    result = None
+    result = ""
+
+    for ch in raw_english_sentence:
+        if ch not in ['.', ',', '!', '?']:
+            result += ch
+    
+    result = result.strip()
 
     return result
     # ==================================
